@@ -1,0 +1,68 @@
+@model E_Commerce.Models.OrderWrapper;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <title>Orders</title>
+</head>
+<body>
+    <a href = "logout">Logout</a>
+    <br/>
+    <h1><a href="main">Dashboard</a> | <a href="products">Products</a> | Orders| <a href="customers">Customers</a> | <a href="">Settings</a></h1>
+    <br>    
+    <h2>Add a New Order:</h2>
+    <form asp-controller="Home" asp-action="AddOrder" method="POST">
+        <span asp-validation-for="@Model.Order.CustomerId"></span>
+        <label>Customer:</label>
+        <select asp-for="@Model.Order.CustomerId">
+            @foreach(var customer in Model.AllCustomers)
+            {
+            <option value = "@customer.CustomerId">@customer.Name</option>
+            }
+        </select>
+        <br>
+        <span asp-validation-for="@Model.Order.OrderQuantity"></span>
+        <label asp-for="@Model.Order.OrderQuantity"></label>
+        <input asp-for="@Model.Order.OrderQuantity"/>
+        <br>
+        <label>Product:</label>
+        <select asp-for="@Model.Order.ProductId">
+            @foreach(var product in Model.AllProducts)
+            {
+            <option value = "@product.ProductId">@product.ProductName</option>
+            }
+        </select>
+        <br>
+        <input type="submit" value="Add New Order"/>
+    </form>
+    <br>
+        <form>
+            <input type="text"/>
+            <input type = "submit" value = "Filter"/>
+        </form>
+    <br>
+    <table>
+        <thead>
+            <th>Order ID#</th>
+            <th>Customer Name</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Order Date</th>
+        </thead>
+        <tbody>
+            @foreach(var order in Model.AllOrders)
+            {
+                <tr>
+                    <th>@order.OrderId</th>
+                    <th>@order.Customer.Name</th>
+                    <th>@order.Product.ProductName</th>
+                    <th>@order.OrderQuantity</th>
+                    <th>@order.CreatedAt</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

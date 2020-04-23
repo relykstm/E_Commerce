@@ -1,0 +1,50 @@
+@model E_Commerce.Models.MainWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" type="text/css">    
+    <title>Sucess</title>
+</head>
+<body>
+    <a href = "logout">Logout</a>
+    <br/>
+    <br/>
+    <h1>Welcome @Model.RegisterUser.FirstName:</h1>
+
+    <h1>Dashboard | <a href="products">Products</a> | <a href="orders">Orders</a> | <a href="customers">Customers</a> | <a href="">Settings</a></h1>
+    <div>
+    <form>
+        <input type="text"/>
+        <input type = "submit" value = "Filter"/>
+    </form>
+    </div>
+    <div>
+    <div class="allproducts">
+        @foreach(var product in Model.ThreeProducts)
+        {
+            <div class="productlist">
+                <img src="@product.Image">
+                <p>@product.ProductName</p>
+                <p>(@product.QuantityInStore left)</p>
+            </div>      
+        }
+    </div>
+    <a href="products">Show more Products...</a>
+    <h1>Recent Orders:</h1>
+    @foreach(var order in Model.ThreeOrders)
+    {
+        <h5>@order.Customer.Name purchased @order.OrderQuantity @order.Product.ProductName</h5>
+    }
+    <a href="orders">Show all Orders...</a>
+    <h1>New Customers:</h1>
+    @foreach(var customer in Model.ThreeCustomers)
+    {
+        <h5>@customer.Name joined the store.</h5>
+    }
+    <a href="customers">Show all Customers...</a>
+    </div>
+
+</body>
+</html>
